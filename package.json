@@ -1,0 +1,22 @@
+{
+  "name": "skclusive-blockchain",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "skclusive-install": "npm install --prefix skclusive-server && npm install --prefix skclusive-client",
+    "skclusive-server": "npm run start --prefix skclusive-server",
+    "skclusive-client": "npm run start --prefix skclusive-client",
+    "skclusive-cleanup": "rimraf skclusive-client/build && rimraf skclusive-server/src/client",
+    "skclusive-build": "npm run build --prefix skclusive-client",
+    "skclusive-deploy": "mv skclusive-client/build skclusive-server/src/client",
+    "skclusive-production": "npm run skclusive-cleanup && npm run skclusive-build && npm run skclusive-deploy && npm run skclusive-server",
+    "contract-install": "npm install --prefix skclusive-contract",
+    "contract-deploy": "npm run start --prefix skclusive-contract",
+    "app-install": "npm run skclusive-install && npm run contract-install"
+  },
+  "devDependencies": {
+    "rimraf": "2.6.2",
+    "ts-node": "7.0.1",
+    "typescript": "^3.2.2"
+  }
+}
