@@ -15,7 +15,7 @@
 
     1. geth --datadir skblkchain1 init genesis.json
 
-    2. geth  --rpc --rpcport 8545 --rpcaddr 0.0.0.0 --rpccorsdomain "*" --datadir skblkchain1 --port "30303" --nodiscover --rpcapi "db,eth,net,web3" --networkid 1234 console --ws --wsport 8546 --wsorigins "*"
+    2. geth  --rpc --rpcport 8545 --rpcaddr 0.0.0.0 --rpccorsdomain "*" --datadir skblkchain1 --port "30303" --nodiscover --rpcapi "eth,net,web3,personal,miner" console --networkid 1234 --ws  --wsaddr 0.0.0.0 --wsport 8546 --wsorigins "*"
 
     3. miner.setEtherbase("0x6c15C74e58f10b3710201c3dfa259F37CddC545d"); // use same address.
 
