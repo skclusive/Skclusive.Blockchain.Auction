@@ -1,41 +1,39 @@
 import * as React from "react";
-import { Component } from "react";
 
-import { create } from "jss";
-import preset from "jss-preset-default";
-import JssProvider from "react-jss/lib/JssProvider";
+import { create as createJSS } from "jss";
 
-import createGenerateClassName from "@material-ui/core/styles/createGenerateClassName";
+import presetJSS from "jss-preset-default";
+
+import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
 import createTheme from "@material-ui/core/styles/createMuiTheme";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
-import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 
+import { StylesProvider, createGenerateClassName } from "@material-ui/styles";
 
 import red from "@material-ui/core/colors/red";
 
 // Create a JSS instance with the default preset of plugins.
 // It's optional.
 
-const jss = create(preset());
+const jss = createJSS(presetJSS());
 
 const generateClassName = createGenerateClassName();
 
-export default class Theme extends Component {
-  render() {
-    const { children, theme } = this.props;
-    return (
-      <JssProvider jss={jss} generateClassName={generateClassName}>
-        <ThemeProvider theme={this.getTheme(theme)}>
-          <CssBaseline />
-          {children}
-        </ThemeProvider>
-      </JssProvider>
-    );
-  }
+export default function Theme(props) {
+  const { children, theme } = props;
+  return (
+    <StylesProvider jss={jss} generateClassName={generateClassName}>
+      <ThemeProvider theme={getTheme(theme)}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
+    </StylesProvider>
+  );
 
-  getTheme(theme) {
+  // tslint:disable-next-line:no-shadowed-variable
+  function getTheme(theme) {
     return createTheme({
       palette: {
         contrastThreshold: 3,
@@ -46,9 +44,6 @@ export default class Theme extends Component {
         // secondary: lightBlue,
         tonalOffset: 0.2,
         type: theme
-      },
-      typography: {
-        useNextVariants: true
       }
     });
   }

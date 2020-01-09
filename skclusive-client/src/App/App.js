@@ -1,41 +1,73 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 
 import { SnackbarProvider } from "notistack";
 
-import Home from "./pages/Home";
-import Games from "./pages/Games";
-import Auction from "./pages/Auction";
-import Register from "./pages/Register";
-import LeaderBoard from "./pages/LeaderBoard";
-
-import Admin from './pages/admin';
+import Home from "../pages/Home";
+import Auction from "../pages/Auction";
+import Register from "../pages/Register";
+import Scores from "../pages/Scores";
+import Settings from "../pages/Settings";
+import Admin from "../pages/Admin";
 
 import { BrowserRouter as Router } from "react-router-dom";
 
-import Private from "./Private";
+import { Main as MainLayout, Minimal as MiniLayout } from "../Layout";
+
+import RouteWithLayout from "../Route/RouteWithLayout";
 
 export default class App extends Component {
   render() {
     return (
       <Router>
-        <div>
-          <SnackbarProvider
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            maxSnack={5}
-            transitionDuration={{ exit: 1000, enter: 400 }}
-          >
-            <Switch>
-              <Route path="/register/:uuid?" component={Register} />
-              <Private exact path="/dashboard" component={Home} />
-              <Private exact path="/games/leaderboard" component={LeaderBoard} />
-              <Private path="/games/auction" component={Auction} />
-              <Private exact path="/games" component={Games} />
-              <Private exact path="/" component={Home} />
-              <Route exact path="/admin" component={Admin} />
-            </Switch>
-          </SnackbarProvider>
-        </div>
+        <SnackbarProvider
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          maxSnack={5}
+          transitionDuration={{ exit: 1000, enter: 400 }}
+        >
+          <Switch>
+            <RouteWithLayout
+              layout={MiniLayout}
+              component={Register}
+              path="/register/:uuid?"
+            />
+            <RouteWithLayout
+              layout={MainLayout}
+              authorized
+              exact
+              path="/scores"
+              component={Scores}
+            />
+            <RouteWithLayout
+              layout={MainLayout}
+              authorized
+              exact
+              path="/auction"
+              component={Auction}
+            />
+            <RouteWithLayout
+              layout={MainLayout}
+              authorized={false}
+              exact
+              path="/settings"
+              component={Settings}
+            />
+            <RouteWithLayout
+              layout={MainLayout}
+              authorized
+              exact
+              path="/"
+              component={Home}
+            />
+            <RouteWithLayout
+              layout={MiniLayout}
+              authorized={false}
+              exact
+              path="/admin"
+              component={Admin}
+            />
+          </Switch>
+        </SnackbarProvider>
       </Router>
     );
   }

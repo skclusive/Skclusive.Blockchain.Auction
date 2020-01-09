@@ -1,7 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
 import * as serviceWorker from "./serviceWorker";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import App from "./App";
 import Theme from "./Theme";
