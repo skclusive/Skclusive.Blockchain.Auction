@@ -157,7 +157,7 @@ export class AuctionList extends Component {
 
   onClick(auction) {
     return event => {
-      this.props.history.push(`/games/auction/${auction}`);
+      this.props.history.push(`/auction/${auction}`);
     };
   }
 }

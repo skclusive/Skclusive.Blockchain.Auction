@@ -1,11 +1,11 @@
 const config = {
   geth: {
     host: {
-      http: "http://192.168.43.125:8545",
-      websocket: "ws://192.168.43.125:8546"
+      http: "http://172.24.200.82:8545",
+      websocket: "ws://172.24.200.82:8546"
     },
     explorer: {
-      host: "localhost",
+      host: "172.24.200.82",
       port: 3001
     }
   }

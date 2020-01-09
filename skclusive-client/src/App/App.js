@@ -8,6 +8,9 @@ import Auction from "../pages/Auction";
 import Register from "../pages/Register";
 import Scores from "../pages/Scores";
 import Settings from "../pages/Settings";
+import Help from "../pages/Help";
+import Account from "../pages/Account";
+
 import Admin from "../pages/Admin";
 
 import { BrowserRouter as Router } from "react-router-dom";
@@ -41,16 +44,29 @@ export default class App extends Component {
             <RouteWithLayout
               layout={MainLayout}
               authorized
-              exact
               path="/auction"
               component={Auction}
             />
             <RouteWithLayout
               layout={MainLayout}
-              authorized={false}
+              authorized
               exact
               path="/settings"
               component={Settings}
+            />
+            <RouteWithLayout
+              layout={MainLayout}
+              authorized
+              exact
+              path="/account"
+              component={Account}
+            />
+            <RouteWithLayout
+              layout={MainLayout}
+              authorized
+              exact
+              path="/help"
+              component={Help}
             />
             <RouteWithLayout
               layout={MainLayout}

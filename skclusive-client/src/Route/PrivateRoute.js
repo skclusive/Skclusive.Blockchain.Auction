@@ -4,14 +4,14 @@ import { Route, Redirect } from "react-router-dom";
 
 import AccountStorage from "../states/Account/AccountStorage";
 
-export default function PrivateRoute({ component: Component, ...rest }) {
+export default function PrivateRoute({ render, ...rest }) {
   const redirect = !AccountStorage.stored.uuid;
   return (
     <Route
       {...rest}
       render={props =>
         !redirect ? (
-          <Component {...props} />
+          render(props)
         ) : (
           <Redirect
             to={{

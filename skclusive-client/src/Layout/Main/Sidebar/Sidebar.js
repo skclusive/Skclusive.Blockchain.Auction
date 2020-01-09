@@ -6,6 +6,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ScoreIcon from '@material-ui/icons/Score';
+import HelpIcon from "@material-ui/icons/HelpOutlined";
 
 import Profile from "./Profile";
 import SidebarNav from './SidebarNav';
@@ -58,6 +59,11 @@ const Sidebar = props => {
       title: 'Settings',
       href: '/settings',
       icon: <SettingsIcon />
+    },
+    {
+      title: 'Help',
+      href: '/help',
+      icon: <HelpIcon />
     }
   ];
 

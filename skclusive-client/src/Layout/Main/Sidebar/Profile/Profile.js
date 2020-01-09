@@ -6,6 +6,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { green } from "@material-ui/core/colors";
 
+import AccountStorage from "../../../../states/Account/AccountStorage";
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -30,9 +32,11 @@ const Profile = props => {
 
   const classes = useStyles();
 
+  const account = AccountStorage.stored;
+
   const user = {
-    name: "Shen Zhi",
-    address: "Brain Director"
+    name: account.name,
+    email: account.email
   };
 
   return (
@@ -48,7 +52,7 @@ const Profile = props => {
       <Typography className={classes.name} variant="h4">
         {user.name}
       </Typography>
-      <Typography variant="body2">{user.address}</Typography>
+      <Typography variant="body2">{user.email}</Typography>
     </div>
   );
 };

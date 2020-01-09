@@ -26,7 +26,7 @@ contract Auction is Ownable, Notifiable {
         address payable beneficiary;
     }
 
-	uint private points = 10;
+	uint private points = 100;
 
     State private state;
 
