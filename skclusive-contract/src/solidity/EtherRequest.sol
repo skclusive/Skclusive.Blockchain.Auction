@@ -6,22 +6,22 @@ import "./Ownable.sol";
 import './Registration.sol';
 
 contract EtherRequest is Ownable {
-    
+
     Registration private _registration;
-    
+
     struct User {
         address addrezz;
         string uuid;
         string name;
         string phone;
     }
-    
+
     User[] private users;
-    
+
     constructor(Registration registration) public payable onlyAdmin {
         _registration = registration;
     }
-    
+
     function checkRequestPending(address addrezz) public view returns (bool) {
         for(uint i = 0; i < users.length; i++) {
             if(users[i].addrezz == addrezz) {
@@ -30,9 +30,10 @@ contract EtherRequest is Ownable {
         }
         return false;
     }
-    
+
     function requestEther(string memory uuid) public onlyAdmin  {
-       (address _addrezz, string memory _uuid, string memory _phone, string memory _name) = _registration.getUserByUUID(uuid);
+       (address _addrezz, string memory _uuid,
+       string memory _phone, string memory _name) = _registration.getUserById(uuid);
        bool isRequestPending = checkRequestPending(_addrezz);
        if(!isRequestPending) {
            User memory user = User({
@@ -45,7 +46,7 @@ contract EtherRequest is Ownable {
        }
     }
 
-    function getUsers() external view onlyAdmin returns  
+    function getUsers() external view onlyAdmin returns
     (
         address[] memory addrezzes,
         string[] memory names,
@@ -67,7 +68,7 @@ contract EtherRequest is Ownable {
             _uuids[i] = user.uuid;
             _phones[i] = user.phone;
         }
-        return 
+        return
         (
             _addrezzes,
             _names,
@@ -75,8 +76,9 @@ contract EtherRequest is Ownable {
             _phones
         );
     }
-    
-    function acceptRequest(address payable _addrezz, string memory uuid) public onlyAdmin returns (bool) {
+
+    function acceptRequest(address payable _addrezz,
+        string memory uuid) public onlyAdmin returns (bool) {
         if(!_registration.checkInitialCredit(uuid)) {
             _registration.creditEther(uuid);
             deleteUser(_addrezz);
@@ -84,7 +86,7 @@ contract EtherRequest is Ownable {
         }
         return false;
     }
-    
+
     function deleteUser(address _addrezz) private {
         for(uint i = 0; i < users.length; i++) {
             if(users[i].addrezz == _addrezz) {

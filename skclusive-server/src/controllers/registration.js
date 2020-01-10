@@ -16,7 +16,7 @@ const registerUser = async (req, res) => {
   try {
     const user = req.body;
     var amount = 100000;
-    const accountdata = await registration.getUserByUUID(user.uuid);
+    const accountdata = await registration.getUserById(user.uuid);
     console.log('User Data from the input ---- ', user);
     if (accountdata["2"] == 2) {
       res.status(200).json({
@@ -25,8 +25,8 @@ const registerUser = async (req, res) => {
         errorCode: "REG-001"
       });
     } else {
-      const mobileNumberUsed = await registration.checkUserByMobile(user.phone);
-      if (!mobileNumberUsed) {
+      const phoneUsed = await registration.checkUserByPhone(user.phone);
+      if (!phoneUsed) {
         const accountCreated = registration.registerUser(
           user.phone,
           user.address,
@@ -42,7 +42,7 @@ const registerUser = async (req, res) => {
         });
       } else {
         res.status(200).json({
-          message: "Mobile number already used!!",
+          message: "Phone number already used!!",
           status: "KO",
           errorCode: "101"
         });

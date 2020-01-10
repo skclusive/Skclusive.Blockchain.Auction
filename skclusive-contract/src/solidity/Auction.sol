@@ -49,8 +49,14 @@ contract Auction is Ownable, Notifiable {
     /// functions. `onlyBefore` is applied to `bid` below:
     /// The new function body is the modifier's body where
     /// `_` is replaced by the old function body.
-    modifier onlyBefore(uint _time) { require(now < _time); _; }
-    modifier onlyAfter(uint _time) { require(now > _time); _; }
+    modifier onlyBefore(uint _time) {
+        require(now < _time, "can not be done");
+         _;
+    }
+    modifier onlyAfter(uint _time) {
+        require(now > _time, "can not be done");
+        _;
+    }
 
     constructor(
         string memory _name,
@@ -63,7 +69,7 @@ contract Auction is Ownable, Notifiable {
     ) public payable onlyAdmin {
         uint _biddingEnd = now + _biddingTime;
         uint _revealEnd = _biddingEnd + _revealTime;
-        
+
         state = State({
             name: _name,
             description: _description,
@@ -124,17 +130,16 @@ contract Auction is Ownable, Notifiable {
         onlyBefore(state.revealEnd)
     {
         uint length = bids[msg.sender].length;
-        require(_values.length == length);
-        require(_fake.length == length);
-        require(_secret.length == length);
+        require(_values.length == length, "values are not same legth");
+        require(_fake.length == length, "fakes are not same legth");
+        require(_secret.length == length, "secrets are not same legth");
 
         uint highest = state.highestBid;
 
         uint refund;
         for (uint i = 0; i < length; i++) {
             Bid storage bidToCheck = bids[msg.sender][i];
-            (uint value, bool fake, bytes32 secret) =
-                    (_values[i], _fake[i], _secret[i]);
+            (uint value, bool fake, bytes32 secret) = (_values[i], _fake[i], _secret[i]);
             if (bidToCheck.blindedBid != keccak256(abi.encodePacked(value, fake, secret))) {
                 // Do not refund deposit.
                 continue;
@@ -187,7 +192,7 @@ contract Auction is Ownable, Notifiable {
             // before `transfer` returns (see the remark above about
             // conditions -> effects -> interaction).
             pendingReturns[msg.sender] = 0;
- 
+
             msg.sender.transfer(amount);
         }
     }
@@ -198,7 +203,7 @@ contract Auction is Ownable, Notifiable {
         public
         onlyOwner
         onlyAfter(state.revealEnd) {
-        require(!state.hasEnded);
+        require(!state.hasEnded, "auction already ended");
         emit AuctionEnded(state.highestBidder, state.highestBid);
         state.hasEnded = true;
         state.beneficiary.transfer(state.highestBid);
@@ -209,7 +214,7 @@ contract Auction is Ownable, Notifiable {
         winner("Auction", state.highestBidder, "has won the auction");
     }
 
-    function getAllBidders() public view returns 
+    function getAllBidders() public view returns
     (
         address[] memory bidders
     ) {
@@ -220,26 +225,26 @@ contract Auction is Ownable, Notifiable {
         return (_bidders);
     }
 
-    function getAllBids() public view returns 
+    function getAllBids() public view returns
     (
-        address[] memory bidders, 
-        bytes32[] memory blindedBids, 
+        address[] memory bidders,
+        bytes32[] memory blindedBids,
         uint[] memory times
     ) {
         address[] memory _bidders = new address[](_bids.length);
         bytes32[] memory _blindedBids = new bytes32[](_bids.length);
         uint[] memory _times = new uint[](_bids.length);
-        
+
         for (uint i = 0; i < _bids.length; i++) {
             _bidders[i] = _bids[i].bidder;
             _blindedBids[i] = _bids[i].blindedBid;
             _times[i] = _bids[i].time * 1000;
         }
-        
+
         return (_bidders, _blindedBids, _times);
     }
 
-    function getEndState() public view returns 
+    function getEndState() public view returns
     (
         address addrezz,
         string memory name,
@@ -247,21 +252,21 @@ contract Auction is Ownable, Notifiable {
         address highestBidder,
         uint highestBid
     ) {
-        return 
+        return
         (
             address(this),
             state.name,
             state.hasEnded,
-            state.highestBidder, 
+            state.highestBidder,
             state.highestBid
         );
     }
 
-    function getState() public view returns 
+    function getState() public view returns
     (
-        address addrezz, 
+        address addrezz,
         string memory name,
-        string memory description, 
+        string memory description,
         string memory image,
         uint biddingEnd,
         uint revealEnd,
@@ -271,38 +276,38 @@ contract Auction is Ownable, Notifiable {
         address payable beneficiary,
         bool hasReturns
     ) {
-        return 
+        return
         (
-            address(this), 
-            state.name, 
-            state.description, 
-            state.image, 
+            address(this),
+            state.name,
+            state.description,
+            state.image,
             state.biddingEnd * 1000,
-            state.revealEnd * 1000, 
+            state.revealEnd * 1000,
             state.hasEnded,
-            state.highestBidder, 
-            state.highestBid, 
+            state.highestBidder,
+            state.highestBid,
             state.beneficiary,
             pendingReturns[msg.sender] > 0
         );
     }
 
-    function getMainState() public view returns 
+    function getMainState() public view returns
     (
         string memory name,
-        string memory description, 
+        string memory description,
         string memory image,
         bool hasEnded,
         uint biddingEnd,
         uint highestBid
     ) {
-        return 
+        return
         (
-            state.name, 
-            state.description, 
+            state.name,
+            state.description,
             state.image,
             state.hasEnded,
-            state.biddingEnd * 1000, 
+            state.biddingEnd * 1000,
             state.highestBid
         );
     }
@@ -314,18 +319,18 @@ contract Auction is Ownable, Notifiable {
         bool hasEnded,
         address highestBidder,
         uint highestBid,
-        address[] memory bidders, 
+        address[] memory bidders,
         bytes32[] memory blindedBids,
         uint[] memory times) {
         (address[] memory _bidders, bytes32[] memory _blindedBids, uint[] memory _times) = getAllBids();
         return (
-            state.name, 
+            state.name,
             state.biddingEnd * 1000,
-            state.revealEnd * 1000, 
+            state.revealEnd * 1000,
             state.hasEnded,
-            state.highestBidder, 
+            state.highestBidder,
             state.highestBid,
-            _bidders, 
+            _bidders,
             _blindedBids,
             _times);
     }

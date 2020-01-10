@@ -38,7 +38,7 @@ const AccountProfile = props => {
     <Card {...rest} className={clsx(classes.root, className)}>
       <CardContent>
         <div className={classes.details}>
-          <Grid container direction="row" spacing="2">
+          <Grid container direction="row" spacing={2}>
             <Grid item>
               <Avatar className={classes.avatar}>{user.name[0]}</Avatar>
             </Grid>

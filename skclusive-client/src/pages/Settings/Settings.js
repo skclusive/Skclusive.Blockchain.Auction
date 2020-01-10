@@ -15,8 +15,8 @@ const useStyles = makeStyles(theme => ({
 export default function Settings(props) {
   const classes = useStyles();
   return (
-    <Grid className={clsx(classes.root, props.className)}>
-      <Grid spacing="4">
+    <Grid container spacing={4} className={clsx(classes.root, props.className)}>
+      <Grid>
         <Typography variant="h4">
           Current Account can be erased locally clicking below button.
         </Typography>

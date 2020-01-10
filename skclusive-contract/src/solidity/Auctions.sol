@@ -49,15 +49,15 @@ contract Auctions is Ownable, Notifiable {
         }
     }
 
-    function getAuctions() external view returns (address [] memory auctions) {
+    function getAuctions() external view returns (address[] memory auctions) {
         auctions = _auctions;
     }
 
-    function getAuctionState(address _addrezz) external view returns 
+    function getAuctionState(address _addrezz) external view returns
      (
-        address addrezz, 
+        address addrezz,
         string memory name,
-        string memory description, 
+        string memory description,
         string memory image,
         uint biddingEnd,
         uint revealEnd,
@@ -108,7 +108,7 @@ contract Auctions is Ownable, Notifiable {
             _biddingEnds[i] = _biddingEnd;
             _highestBids[i] = _highestBid;
         }
-        return 
+        return
         (
             _addrezzes,
             _names,

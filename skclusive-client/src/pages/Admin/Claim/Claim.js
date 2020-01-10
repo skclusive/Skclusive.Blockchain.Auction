@@ -181,7 +181,7 @@ class Claim extends Component {
                   <TableHead>
                     <TableRow>
                       <TableCell>Name</TableCell>
-                      <TableCell>Mobile Number</TableCell>
+                      <TableCell>Phone Number</TableCell>
                       <TableCell>Claim Ether</TableCell>
                     </TableRow>
                   </TableHead>

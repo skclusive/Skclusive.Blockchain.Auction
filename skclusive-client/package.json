@@ -34,7 +34,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://172.24.200.82:3003",
+  "proxy": "http://127.0.0.1:3003",
   "devDependencies": {
     "node-sass": "4.13.0",
     "react-scripts": "3.3.0"

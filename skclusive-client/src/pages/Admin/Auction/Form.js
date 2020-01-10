@@ -22,7 +22,7 @@ export class AuctionForm extends Component {
 
     return (
       <>
-        <Grid container direction="column" spacing="6" alignContent="center">
+        <Grid container direction="column" spacing={6} alignContent="center">
           <Grid item>
             <Button
               variant="contained"

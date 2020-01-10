@@ -127,11 +127,11 @@ class Register extends React.Component {
     });
   };
 
-  checkMobileNumber = async event => {
+  checkPhoneNumber = async event => {
     const { target } = event;
     const value = target.value;
     const { uuid } = this.state;
-    const user = await this.registration.getUserByMobileNumber(value);
+    const user = await this.registration.getUserByPhone(value);
     let fields = {
       name: "",
       email: "",
@@ -204,13 +204,14 @@ class Register extends React.Component {
     const { enqueueSnackbar } = this.props;
     this.unsubscribe = this.registration.onUserRegistered(async response => {
       const account = {
-        phone: response.mobileNumber,
-        address: response.publicKey,
+        phone: response.phone,
+        address: response.addrezz,
         uuid: response.uuid,
         name: response.name,
         email: response.email,
         college: response.college
       };
+      console.log("account", account);
       const { uuid } = this.state;
       const ethAccount = JSON.parse(localStorage.getItem("__eth__account__"));
       if (uuid === account.uuid && ethAccount.address === account.address) {
@@ -329,7 +330,7 @@ class Register extends React.Component {
                     className={classes.textField}
                     value={phone}
                     onChange={e => this.handleChange(e)}
-                    onBlur={e => this.checkMobileNumber(e)}
+                    onBlur={e => this.checkPhoneNumber(e)}
                     margin="normal"
                     InputProps={{
                       startAdornment: (

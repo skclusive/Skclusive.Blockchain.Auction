@@ -18,20 +18,20 @@ export default class Registration extends Contract {
     return new Registration({ ...registration, address }, web3, options);
   }
 
-  async getUserByUUID(uuid, options = {}) {
-    return this._func("getUserByUUID", uuid, options);
+  async getUserById(uuid, options = {}) {
+    return this._func("getUserById", uuid, options);
   }
 
-  async getUserByMobileNumber(mobileNumber, options = {}) {
-    return this._func("getUserByMobileNumber", mobileNumber, options);
+  async getUserByPhone(phone, options = {}) {
+    return this._func("getUserByPhone", phone, options);
   }
 
   async checkInitialCredit(uuid, options = {}) {
     return this._func("checkInitialCredit", uuid, options);
   }
 
-  async registerUser(mobileNumber, publicKey, uuid, name, email, college, options = {}) {
-    return this._func("registerUser", mobileNumber, publicKey, uuid, name, email, college, options);
+  async registerUser(phone, publicKey, uuid, name, email, college, options = {}) {
+    return this._func("registerUser", phone, publicKey, uuid, name, email, college, options);
   }
 
   async getManager(options = {}) {
@@ -42,8 +42,8 @@ export default class Registration extends Contract {
     return this._func("creditEther", uuid, options);
   }
 
-  async checkUserByMobile(mobileNumber, options = {}) {
-    return this._func("checkUserByMobile", mobileNumber, {});
+  async checkUserByPhone(phone, options = {}) {
+    return this._func("checkUserByPhone", phone, {});
   }
 
   async getScoresCount(options = {}) {

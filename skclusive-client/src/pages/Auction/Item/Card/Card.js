@@ -46,7 +46,7 @@ export class AuctionCard extends Component {
         <Card className={classes.card} square>
           <CardMedia className={classes.media} image={image} title={name} />
           <CardContent>
-            <Grid item xs container direction="column" spacing={16}>
+            <Grid item xs container direction="column" spacing={4}>
               <Grid item xs>
                 <Typography variant="h4" className={classes.name}>
                   {`${name}`}

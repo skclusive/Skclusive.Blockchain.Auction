@@ -6,27 +6,36 @@ contract Notifiable {
 
     event Winner(address addrezz, string game, string message);
 
-    function notify(string memory game, address[] memory addrezzes, string memory message) internal {
+    function notify(string memory game, address[] memory addrezzes,
+        string memory message) internal {
         emit Notify(addrezzes, game, message);
     }
 
-    function notify(string memory game, address[] memory addrezzes, string memory message1, string memory message2) internal {
+    function notify(string memory game, address[] memory addrezzes,
+        string memory message1, string memory message2) internal {
         notify(game, addrezzes, concat(message1, message2));
     }
 
-    function notify(string memory game, address[] memory addrezzes, string memory message1, string memory message2, string memory message3) internal {
+    function notify(string memory game, address[] memory addrezzes,
+        string memory message1, string memory message2, string memory message3) internal {
         notify(game, addrezzes, concat(message1, message2), message3);
     }
 
-    function notify(string memory game, address[] memory addrezzes, string memory message1, string memory message2, string memory message3, string memory message4) internal {
+    function notify(string memory game, address[] memory addrezzes,
+        string memory message1, string memory message2, string memory message3,
+        string memory message4) internal {
         notify(game, addrezzes, concat(message1, message2), message3, message4);
     }
 
-    function notify(string memory game, address[] memory addrezzes, string memory message1, string memory message2, string memory message3, string memory message4, string memory message5) internal {
+    function notify(string memory game, address[] memory addrezzes,
+        string memory message1, string memory message2, string memory message3,
+        string memory message4, string memory message5) internal {
         notify(game, addrezzes, concat(message1, message2), message3, message4, message5);
     }
 
-    function notify(string memory game, address[] memory addrezzes, string memory message1, string memory message2, string memory message3, string memory message4, string memory message5, string memory message6) internal {
+    function notify(string memory game, address[] memory addrezzes,
+        string memory message1, string memory message2, string memory message3,
+        string memory message4, string memory message5, string memory message6) internal {
         notify(game, addrezzes, concat(message1, message2), message3, message4, message5, message6);
     }
 
@@ -36,23 +45,31 @@ contract Notifiable {
         notify(game, addrezzes, message);
     }
 
-    function notify(string memory game, address addrezz, string memory message1, string memory message2) internal {
+    function notify(string memory game, address addrezz,
+        string memory message1, string memory message2) internal {
         notify(game, addrezz, concat(message1, message2));
     }
 
-    function notify(string memory game, address addrezz, string memory message1, string memory message2, string memory message3) internal {
+    function notify(string memory game, address addrezz,
+        string memory message1, string memory message2, string memory message3) internal {
         notify(game, addrezz, concat(message1, message2), message3);
     }
 
-    function notify(string memory game, address addrezz, string memory message1, string memory message2, string memory message3, string memory message4) internal {
+    function notify(string memory game, address addrezz,
+        string memory message1, string memory message2, string memory message3,
+        string memory message4) internal {
         notify(game, addrezz, concat(message1, message2), message3, message4);
     }
 
-    function notify(string memory game, address addrezz, string memory message1, string memory message2, string memory message3, string memory message4, string memory message5) internal {
+    function notify(string memory game, address addrezz,
+        string memory message1, string memory message2, string memory message3,
+        string memory message4, string memory message5) internal {
         notify(game, addrezz, concat(message1, message2), message3, message4, message5);
     }
 
-    function notify(string memory game, address addrezz, string memory message1, string memory message2, string memory message3, string memory message4, string memory message5, string memory message6) internal {
+    function notify(string memory game, address addrezz,
+        string memory message1, string memory message2, string memory message3,
+        string memory message4, string memory message5, string memory message6) internal {
         notify(game, addrezz, concat(message1, message2), message3, message4, message5, message6);
     }
 

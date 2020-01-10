@@ -41,7 +41,7 @@ export class AuctionItem extends Component {
   constructor(props) {
     super(props);
     const { addrezz } = this.props.match.params;
-    this.state = { addrezz, bid: false, reveal: false, hack: 1 };
+    this.state = { addrezz, bid: false, reveal: false, hack: 1, loaded: false };
     this.auction = Auction.at(addrezz);
     this.subscriptions = [];
   }
@@ -56,6 +56,7 @@ export class AuctionItem extends Component {
       reveal: ropen,
       mybids = [],
       bids = [],
+      loaded,
       ...auction
     } = this.state;
 
@@ -74,6 +75,10 @@ export class AuctionItem extends Component {
     const biddingEnded = auction.biddingEnd - Date.now() <= 0;
     const revealEnded = auction.revealEnd - Date.now() <= 0;
 
+    if (!loaded) {
+      return null;
+    }
+
     return (
       <div {...{ className, style }}>
         <Grid container direction="column" wrap="nowrap">
@@ -82,7 +87,7 @@ export class AuctionItem extends Component {
               <CardActions className={classes.actions}>
                 <Button
                   // size="small"
-                  variant="raised"
+                  variant="contained"
                   color="primary"
                   disabled={hasEnded || biddingEnded}
                   onClick={this.onBid}
@@ -91,7 +96,7 @@ export class AuctionItem extends Component {
                 </Button>
                 <Button
                   // size="small"
-                  variant="raised"
+                  variant="contained"
                   color="primary"
                   disabled={!biddingEnded || revealEnded}
                   onClick={this.onReveal}
@@ -100,7 +105,7 @@ export class AuctionItem extends Component {
                 </Button>
                 <Button
                   // size="small"
-                  variant="raised"
+                  variant="contained"
                   color="primary"
                   disabled={!hasReturns}
                   onClick={this.onWithdraw}
@@ -289,9 +294,8 @@ export class AuctionItem extends Component {
     //   .forEach((bid, index) => {
     //     bid.mine = mybids[index];
     //   });
-    const xstate = { ...state, bids, mybids };
+    const xstate = { ...state, bids, mybids, loaded: true };
     this.setState(() => xstate);
-    console.log(xstate);
   }
 
   async componentDidMount() {
