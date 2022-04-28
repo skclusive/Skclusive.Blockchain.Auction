@@ -10,7 +10,7 @@
     "@material-ui/icons": "4.5.1",
     "@material-ui/lab": "4.0.0-alpha.39",
     "classnames": "2.2.6",
-    "cross-fetch": "3.0.4",
+    "cross-fetch": "3.1.5",
     "jss": "10.0.3",
     "jss-preset-default": "10.0.3",
     "react-jss": "10.0.3",
